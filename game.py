@@ -1,7 +1,7 @@
 '''
 This code was developed by Damião Gomes
 
-git hub profile:
+git hub profile: github.com/dam1aoGomes/
 '''
 import pgzrun
 
@@ -9,6 +9,7 @@ import pgzrun
 WIDTH = 900
 HEIGHT = 540
 TITLE = 'Help the Green Alien'
+
 # Game Config
 GRAVITY = 1
 INITIAL_X_POS_PLAYER = 80
@@ -19,6 +20,7 @@ MUSIC_VOLUME = 0.35
 
 in_menu = True
 sound_enable = True
+
 '''
 This is a collision map, where there is a 1 in some vector space,
 it will be rendered in x,y on the map as if it were a Rect,
@@ -290,9 +292,6 @@ class EnemyYellowAlien:
         
     def update(self):
         self.rect_collider = Rect(((self.actor.x - self.sprite_width / 2) + 6,(self.actor.y - self.sprite_height / 2) + 6),(self.width_box_collider,self.height_box_collider))
-        
-    def player_collide():
-        pass
     
     def moviment(self):
         if self.direction == 'right':
@@ -372,15 +371,13 @@ key = Key(850,60)
 door = Door()
 
 spikes = [
-    Spike(378,306),
-    
+    Spike(378,306),    
     Spike(702,216),
     Spike(738,216),
     Spike(774,216),
     Spike(810,216),
     Spike(846,216),
     Spike(882,216),
-    
     Spike(756,180),
     Spike(828,180)
 ]
@@ -395,6 +392,7 @@ def on_key_down(key,mod,unicode):
     if keys.W == key and player.is_colliding_down:
         player.jump()
 
+# On Mouse Down
 def on_mouse_down(pos):
     global in_menu, sound_enable
     
@@ -413,6 +411,15 @@ def on_mouse_down(pos):
         
         if exit_rect.collidepoint(pos):
             exit()
+
+# Start Game Def
+def start_game():
+    red_alien_01.animate()
+    yellow_alien_01.animate()
+    box_01.change_type()
+    box_02.change_type()
+    box_03.change_type()
+    player.animation()   
             
 # On Start Game Def 
 def setup():
@@ -441,14 +448,7 @@ def setup():
     music.play('soundtrack')
     music.set_volume(MUSIC_VOLUME)
 
-def start_game():
-    red_alien_01.animate()
-    yellow_alien_01.animate()
-    box_01.change_type()
-    box_02.change_type()
-    box_03.change_type()
-    player.animation()   
-
+# Draw Def
 def draw():
     screen.clear()
     screen.fill('skyblue')
@@ -515,7 +515,8 @@ def draw():
         # Player Win Text
         if player.win:
             screen.draw.text('You Win',(785,350))
-                
+
+# Update Def      
 def update():
     if in_menu:
         pass
@@ -528,12 +529,6 @@ def update():
         player.actor.y += player.velocity_y
         player.velocity_y += GRAVITY
 
-        '''
-        # Jump Player
-        if keyboard[keys.W] and player.is_colliding_down:
-            player.jump()
-        '''
-        
         # Collision Down Check Player
         for rect in selected_rect_collider_down:
                 if player.actor.colliderect(rect):
